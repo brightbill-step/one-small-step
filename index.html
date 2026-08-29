@@ -46,9 +46,9 @@
             A small place for a very large refusal
           </p>
           <h1>
-            <span data-copy="headline1">No to war.</span>
-            <span data-copy="headline2">No to violence.</span>
-            <span class="accent-line" data-copy="headline3">No to misogyny.</span>
+            <span data-copy="headline1">No to war</span>
+            <span data-copy="headline2">No to violence</span>
+            <span class="accent-line" data-copy="headline3">No to misogyny</span>
           </h1>
           <p class="hero-intro" data-copy="intro">
             We do not believe one website can end every war. We believe silence
@@ -218,6 +218,30 @@
         s.onerror = loadTally;
         d.body.appendChild(s);
       }
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var headlineSelector =
+          '[data-copy="headline1"], [data-copy="headline2"], [data-copy="headline3"]';
+
+        var removeHeadlinePeriods = function () {
+          document.querySelectorAll(headlineSelector).forEach(function (headline) {
+            var cleanText = headline.textContent.replace(/[.。]\s*$/, "");
+            if (cleanText !== headline.textContent) {
+              headline.textContent = cleanText;
+            }
+          });
+        };
+
+        removeHeadlinePeriods();
+        document.querySelectorAll(headlineSelector).forEach(function (headline) {
+          new MutationObserver(removeHeadlinePeriods).observe(headline, {
+            childList: true,
+            characterData: true,
+            subtree: true,
+          });
+        });
+      });
     </script>
   </body>
 </html>
