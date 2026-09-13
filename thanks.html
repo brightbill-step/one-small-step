@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f2eee4" />
+    <meta name="robots" content="noindex" />
+    <title>Thank you | One Small Step</title>
+    <link rel="icon" href="./favicon-2.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <style>
+      .thanks-page {
+        min-height: 100svh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .thanks-main {
+        width: min(100% - 40px, 760px);
+        flex: 1;
+        margin: 0 auto;
+        display: grid;
+        place-items: center;
+        padding: 64px 0 80px;
+      }
+
+      .thanks-card {
+        width: 100%;
+        padding: clamp(54px, 9vw, 92px) clamp(24px, 7vw, 72px);
+        border: 1px solid var(--line);
+        background: rgba(250, 248, 242, 0.58);
+        text-align: center;
+      }
+
+      .thanks-mark {
+        width: 78px;
+        height: 78px;
+        margin: 0 auto 34px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: rgba(182, 59, 50, 0.1);
+      }
+
+      .thanks-mark::after {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--red);
+        content: "";
+      }
+
+      .thanks-card .eyebrow {
+        margin-bottom: 18px;
+      }
+
+      .thanks-card h1 {
+        max-width: 620px;
+        margin: 0 auto;
+        font-family: Georgia, "Times New Roman", Tahoma, serif;
+        font-size: clamp(2.35rem, 7vw, 4.4rem);
+        font-weight: 500;
+        letter-spacing: -0.045em;
+        line-height: 1.02;
+      }
+
+      .thanks-message {
+        max-width: 540px;
+        margin: 26px auto 0;
+        color: var(--muted-ink);
+        font-size: clamp(1rem, 2vw, 1.12rem);
+        line-height: 1.85;
+      }
+
+      .thanks-action {
+        min-height: 52px;
+        margin-top: 34px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        padding: 0 24px;
+        border: 1px solid var(--ink);
+        border-radius: 999px;
+        background: var(--ink);
+        color: var(--paper-light);
+        font-weight: 800;
+        text-decoration: none;
+      }
+
+      .thanks-action:hover,
+      .thanks-action:focus-visible {
+        border-color: var(--red-dark);
+        background: var(--red-dark);
+      }
+
+      [dir="rtl"] .thanks-card h1 {
+        font-family: Tahoma, Arial, sans-serif;
+        font-weight: 800;
+        letter-spacing: -0.055em;
+        line-height: 1.25;
+      }
+
+      [dir="rtl"] .thanks-message {
+        line-height: 2;
+      }
+
+      @media (max-width: 560px) {
+        .thanks-main {
+          width: min(100% - 30px, 760px);
+          padding: 28px 0 54px;
+        }
+
+        .thanks-card {
+          padding: 50px 22px 56px;
+        }
+      }
+    </style>
+    <script>
+      (function () {
+        var language = "en";
+        try {
+          var saved = localStorage.getItem("one-small-step-language");
+          if (saved === "fa" || saved === "en") {
+            language = saved;
+          } else if ((navigator.language || "").toLowerCase().startsWith("fa")) {
+            language = "fa";
+          }
+        } catch (_) {}
+        document.documentElement.lang = language;
+        document.documentElement.dir = language === "fa" ? "rtl" : "ltr";
+      })();
+    </script>
+  </head>
+  <body>
+    <div class="site-shell thanks-page">
+      <header class="topbar">
+        <a class="wordmark" href="./" aria-label="One Small Step">
+          <span class="wordmark-dot" aria-hidden="true"></span>
+          <span data-en="One Small Step" data-fa="یک قدم کوچک">One Small Step</span>
+        </a>
+        <button class="language-button" id="language-button" type="button">FA</button>
+      </header>
+
+      <main class="thanks-main">
+        <section class="thanks-card" aria-labelledby="thanks-title">
+          <div class="thanks-mark" aria-hidden="true"></div>
+          <p
+            class="eyebrow"
+            data-en="One small step. Then another."
+            data-fa="یک قدم کوچک؛ بعد قدمی دیگر"
+          >
+            One small step. Then another.
+          </p>
+          <h1
+            id="thanks-title"
+            data-en="Your small step has arrived."
+            data-fa="قدم کوچک تو رسید"
+          >
+            Your small step has arrived.
+          </h1>
+          <p
+            class="thanks-message"
+            data-en="Thank you for sharing it with us. Your submission will be reviewed before publication."
+            data-fa="ممنون که آن را با ما در میان گذاشتی. نوشته‌ات پیش از انتشار بررسی می‌شود."
+          >
+            Thank you for sharing it with us. Your submission will be reviewed before publication.
+          </p>
+          <a
+            class="thanks-action"
+            href="./#wall"
+            data-en="Return to One Small Step  →"
+            data-fa="بازگشت به یک قدم کوچک  ←"
+          >
+            Return to One Small Step →
+          </a>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      (function () {
+        var button = document.getElementById("language-button");
+
+        function currentLanguage() {
+          return document.documentElement.lang === "fa" ? "fa" : "en";
+        }
+
+        function applyLanguage(language) {
+          document.documentElement.lang = language;
+          document.documentElement.dir = language === "fa" ? "rtl" : "ltr";
+          document.title = language === "fa"
+            ? "سپاس | یک قدم کوچک"
+            : "Thank you | One Small Step";
+
+          document.querySelectorAll("[data-en][data-fa]").forEach(function (node) {
+            node.textContent = node.dataset[language];
+          });
+
+          button.textContent = language === "fa" ? "EN" : "FA";
+          button.setAttribute(
+            "aria-label",
+            language === "fa" ? "View this page in English" : "نمایش صفحه به فارسی"
+          );
+
+          try {
+            localStorage.setItem("one-small-step-language", language);
+          } catch (_) {}
+        }
+
+        button.addEventListener("click", function () {
+          applyLanguage(currentLanguage() === "fa" ? "en" : "fa");
+        });
+
+        applyLanguage(currentLanguage());
+      })();
+    </script>
+  </body>
+</html>
