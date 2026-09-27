@@ -795,3 +795,31 @@ footer p {
     scroll-behavior: auto;
   }
 }
+
+/* Conversation: make each voice readable as part of an open exchange. */
+.wall { padding-top: 96px; }
+.wall-heading { margin-bottom: 36px; }
+.wall-invitation {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px; margin-bottom: 26px; padding: 22px 26px;
+  background: var(--green); color: var(--paper-light);
+}
+.wall-invitation p { margin: 0; font-size: 1.1rem; line-height: 1.7; }
+.wall-invitation .primary-action { flex: 0 0 auto; background: var(--paper-light); color: var(--green); border-color: var(--paper-light); }
+.step-wall { grid-template-columns: 1fr; gap: 18px; max-width: 850px; }
+.public-step, .public-step:nth-child(3n + 2), .public-step:nth-child(3n + 3) {
+  min-height: 0; gap: 22px; padding: clamp(24px, 5vw, 48px);
+  background: var(--paper-light); color: var(--ink);
+  border-inline-start: 5px solid var(--red);
+}
+.step-meta { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+.voice-label { color: var(--red-dark); font-size: .84rem; font-weight: 800; }
+.public-step .step-language { color: var(--muted-ink) !important; }
+.public-step blockquote { max-width: 30em; font-size: clamp(1.25rem, 2.1vw, 1.75rem); line-height: 1.8; }
+@media (max-width: 620px) {
+  .wall { padding-top: 72px; }
+  .wall-invitation { align-items: stretch; flex-direction: column; padding: 22px; }
+  .wall-invitation .primary-action { align-self: flex-start; }
+  .public-step blockquote { font-size: 1.35rem; }
+}
+

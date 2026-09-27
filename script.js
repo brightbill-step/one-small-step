@@ -43,10 +43,13 @@ const copy = {
       "We do not ask for your name or email. Please do not include identifying details. Every submission is reviewed before it can appear on the public wall.",
     formFallback: "If the form does not appear, open it directly.",
     openForm: "Open form ↗",
-    wallEyebrow: "The circle",
-    wallTitle: "Small steps, carried by many people.",
+    wallEyebrow: "The conversation",
+    wallTitle: "The conversation begins here.",
     wallIntro:
-      "No ranks, no loudest voice, no perfect heroes—only possible actions offered by people who refuse to normalize cruelty.",
+      "Every voice deserves to be heard. Read, respond, and offer one possible next step.",
+    wallInvitation: "Read the first voice. What would you say to this person? In the form below, start with “In response to the message above” so we can connect your reply after review.",
+    joinConversation: "Add your voice ↓",
+    voiceLabel: "A voice from the circle",
     wallEmpty:
       "The wall is waiting for its first approved step. Perhaps it will be yours.",
     closing:
@@ -98,10 +101,13 @@ const copy = {
       "نام یا ایمیل نمی‌خواهیم. لطفاً هیچ نشانه‌ی هویتی ننویس. هر پیام پیش از نمایش روی دیوار عمومی بررسی می‌شود.",
     formFallback: "اگر فرم نمایش داده نشد، آن را مستقیم باز کن.",
     openForm: "بازکردن فرم ↗",
-    wallEyebrow: "حلقه‌ی ما",
-    wallTitle: "قدم‌های کوچک، بر دوش آدم‌های بسیار.",
+    wallEyebrow: "گفت‌وگوی ما",
+    wallTitle: "گفت‌وگو از همین‌جا آغاز می‌شود.",
     wallIntro:
-      "نه رتبه‌ای هست، نه بلندترین صدا و نه قهرمانان بی‌نقص؛ فقط کارهای ممکنی که آدم‌ها برای عادی‌نکردنِ بی‌رحمی پیشنهاد می‌کنند.",
+      "اینجا حرف‌ها خوانده می‌شوند. می‌توانیم به یکدیگر پاسخ بدهیم و با هم قدمی ممکن پیدا کنیم.",
+    wallInvitation: "این نخستین صداست. تو به او چه می‌گویی؟ در فرم پایین، پاسخ را با «در پاسخ به پیام بالا» شروع کن تا بعد از بررسی کنار همان پیام قرار بگیرد.",
+    joinConversation: "وارد گفت‌وگو شو ↓",
+    voiceLabel: "صدایی از میان ما",
     wallEmpty:
       "دیوار منتظر نخستین قدم تأییدشده است؛ شاید آن قدم، قدم تو باشد.",
     closing:
@@ -130,6 +136,10 @@ function applyLanguage(nextLanguage) {
   const languageButton = document.getElementById("language-button");
   languageButton.textContent = strings.language;
   languageButton.setAttribute("aria-label", strings.languageLabel);
+
+  document.querySelectorAll(".voice-label").forEach((label) => {
+    label.textContent = strings.voiceLabel;
+  });
 
   try {
     localStorage.setItem("one-small-step-language", language);
@@ -163,15 +173,21 @@ function renderSteps(steps) {
     const article = document.createElement("article");
     article.className = "public-step";
 
+    const meta = document.createElement("div");
+    meta.className = "step-meta";
+    const voice = document.createElement("span");
+    voice.className = "voice-label";
+    voice.textContent = copy[language].voiceLabel;
     const label = document.createElement("span");
     label.className = "step-language";
     label.textContent = step.language === "fa" ? "FA" : "EN";
+    meta.append(voice, label);
 
     const quote = document.createElement("blockquote");
     quote.dir = step.language === "fa" ? "rtl" : "ltr";
     quote.textContent = step.content;
 
-    article.append(label, quote);
+    article.append(meta, quote);
     wall.append(article);
   });
 
@@ -187,3 +203,4 @@ fetch("./steps.json", { cache: "no-store" })
   .catch(() => renderSteps([]));
 
 applyLanguage(language);
+
