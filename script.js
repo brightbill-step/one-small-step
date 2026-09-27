@@ -36,9 +36,9 @@ const copy = {
     yes2: "Freedom without fear",
     yes3: "Small acts that travel",
     pledgeEyebrow: "Begin where you are",
-    pledgeTitle: "What is one small step you can take today?",
+    pledgeTitle: "Your reply or your small step",
     pledgeText:
-      "Write something possible, not perfect: listen, speak, protect, teach, document, help, or simply refuse to normalize cruelty.",
+      "Reply to the voice above, or share one small action you can take. If replying, begin with “In response to the message above” so your reply can be placed with it after review.",
     privacy:
       "We do not ask for your name or email. Please do not include identifying details. Every submission is reviewed before it can appear on the public wall.",
     formFallback: "If the form does not appear, open it directly.",
@@ -47,9 +47,10 @@ const copy = {
     wallTitle: "The conversation begins here.",
     wallIntro:
       "Every voice deserves to be heard. Read, respond, and offer one possible next step.",
-    wallInvitation: "Read the first voice. What would you say to this person? In the form below, start with “In response to the message above” so we can connect your reply after review.",
-    joinConversation: "Add your voice ↓",
+    wallInvitation: "What would you say to this person? Your reply can appear here after review.",
+    joinConversation: "Reply to this message ↓",
     voiceLabel: "A voice from the circle",
+    replyLabel: "Replies",
     wallEmpty:
       "The wall is waiting for its first approved step. Perhaps it will be yours.",
     closing:
@@ -94,9 +95,9 @@ const copy = {
     yes2: "آزادی بدون ترس",
     yes3: "قدم‌های کوچکی که سفر می‌کنند",
     pledgeEyebrow: "از همان‌جایی که هستی آغاز کن",
-    pledgeTitle: "امروز چه قدم کوچکی از دست تو برمی‌آید؟",
+    pledgeTitle: "پاسخ تو یا قدم کوچک تو",
     pledgeText:
-      "چیزی ممکن بنویس، نه کامل: شنیدن، حرف‌زدن، محافظت‌کردن، آموزش‌دادن، ثبت‌کردن، کمک‌کردن یا فقط عادی‌نکردنِ بی‌رحمی.",
+      "می‌توانی به پیام بالا پاسخ بدهی یا قدم کوچکی از خودت پیشنهاد کنی. اگر پاسخ می‌دهی، متن را با «در پاسخ به پیام بالا» آغاز کن تا بعد از بررسی، کنار همان پیام منتشر شود.",
     privacy:
       "نام یا ایمیل نمی‌خواهیم. لطفاً هیچ نشانه‌ی هویتی ننویس. هر پیام پیش از نمایش روی دیوار عمومی بررسی می‌شود.",
     formFallback: "اگر فرم نمایش داده نشد، آن را مستقیم باز کن.",
@@ -105,9 +106,10 @@ const copy = {
     wallTitle: "گفت‌وگو از همین‌جا آغاز می‌شود.",
     wallIntro:
       "اینجا حرف‌ها خوانده می‌شوند. می‌توانیم به یکدیگر پاسخ بدهیم و با هم قدمی ممکن پیدا کنیم.",
-    wallInvitation: "این نخستین صداست. تو به او چه می‌گویی؟ در فرم پایین، پاسخ را با «در پاسخ به پیام بالا» شروع کن تا بعد از بررسی کنار همان پیام قرار بگیرد.",
-    joinConversation: "وارد گفت‌وگو شو ↓",
+    wallInvitation: "تو به این پیام چه می‌گویی؟ پاسخ تو پس از بررسی می‌تواند همین‌جا دیده شود.",
+    joinConversation: "به این پیام پاسخ بده ↓",
     voiceLabel: "صدایی از میان ما",
+    replyLabel: "پاسخ‌ها",
     wallEmpty:
       "دیوار منتظر نخستین قدم تأییدشده است؛ شاید آن قدم، قدم تو باشد.",
     closing:
@@ -139,6 +141,9 @@ function applyLanguage(nextLanguage) {
 
   document.querySelectorAll(".voice-label").forEach((label) => {
     label.textContent = strings.voiceLabel;
+  });
+  document.querySelectorAll(".replies-title").forEach((heading) => {
+    heading.textContent = strings.replyLabel;
   });
 
   try {
@@ -188,6 +193,25 @@ function renderSteps(steps) {
     quote.textContent = step.content;
 
     article.append(meta, quote);
+
+    if (Array.isArray(step.replies) && step.replies.length) {
+      const replies = document.createElement("div");
+      replies.className = "step-replies";
+      const heading = document.createElement("h3");
+      heading.className = "replies-title";
+      heading.textContent = copy[language].replyLabel;
+      replies.append(heading);
+      step.replies.forEach((reply) => {
+        if (!reply || typeof reply.content !== "string") return;
+        const item = document.createElement("p");
+        item.className = "step-reply";
+        item.dir = reply.language === "en" ? "ltr" : "rtl";
+        item.textContent = reply.content;
+        replies.append(item);
+      });
+      if (replies.childElementCount > 1) article.append(replies);
+    }
+
     wall.append(article);
   });
 
@@ -203,4 +227,5 @@ fetch("./steps.json", { cache: "no-store" })
   .catch(() => renderSteps([]));
 
 applyLanguage(language);
+
 

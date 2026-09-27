@@ -823,3 +823,11 @@ footer p {
   .public-step blockquote { font-size: 1.35rem; }
 }
 
+
+.wall { padding-bottom: 64px; }
+.wall-invitation { margin-top: 22px; margin-bottom: 0; }
+.pledge { padding-top: 64px; }
+.step-replies { width: 100%; margin-top: 8px; padding-top: 24px; border-top: 1px solid var(--line); }
+.replies-title { margin: 0 0 16px; color: var(--red-dark); font-size: .85rem; }
+.step-reply { max-width: 48em; margin: 0 0 12px; padding: 16px 20px; background: var(--paper); line-height: 1.9; }
+
