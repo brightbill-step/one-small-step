@@ -43,6 +43,8 @@ const copy = {
       "We do not ask for your name or email. Please do not include identifying details. Every submission is reviewed before it can appear on the public wall.",
     formFallback: "If the form does not appear, open it directly.",
     openForm: "Open form ↗",
+    viewComments: "Read your comments",
+    commentsKicker: "Your comments",
     wallEyebrow: "The conversation",
     wallTitle: "The conversation begins here.",
     wallIntro:
@@ -102,6 +104,8 @@ const copy = {
       "نام یا ایمیل نمی‌خواهیم. لطفاً هیچ نشانه‌ی هویتی ننویس. هر پیام پیش از نمایش روی دیوار عمومی بررسی می‌شود.",
     formFallback: "اگر فرم نمایش داده نشد، آن را مستقیم باز کن.",
     openForm: "بازکردن فرم ↗",
+    viewComments: "نظرات شما را بخوان",
+    commentsKicker: "نظرات شما",
     wallEyebrow: "گفت‌وگوی ما",
     wallTitle: "گفت‌وگو از همین‌جا آغاز می‌شود.",
     wallIntro:
@@ -227,5 +231,6 @@ fetch("./steps.json", { cache: "no-store" })
   .catch(() => renderSteps([]));
 
 applyLanguage(language);
+
 
 

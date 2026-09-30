@@ -831,3 +831,16 @@ footer p {
 .replies-title { margin: 0 0 16px; color: var(--red-dark); font-size: .85rem; }
 .step-reply { max-width: 48em; margin: 0 0 12px; padding: 16px 20px; background: var(--paper); line-height: 1.9; }
 
+
+/* The pale sky-blue comment area remains readable on small screens. */
+.comments-action { display:inline-flex; align-items:center; gap:18px; min-height:48px; padding:0 22px; border:2px solid #24677c; border-radius:999px; background:#e8f5f9; color:#16495d; font:inherit; font-weight:800; cursor:pointer; }
+.comments-action:hover,.comments-action:focus-visible { background:#24677c; color:#fff; }
+.wall-heading { display:block; max-width:850px; margin-bottom:22px; padding:clamp(24px,5vw,46px); background:#e8f5f9; border:2px solid #6ca5b6; border-inline-start:9px solid #24677c; }
+.comments-kicker { display:inline-block; margin-bottom:20px; padding:9px 20px; border-radius:999px; background:#24677c; color:#fff; font-size:clamp(1.15rem,3vw,1.7rem); font-weight:800; line-height:1.5; }
+.wall-heading .eyebrow { margin:0 0 12px; color:#24677c; }
+.wall-heading h2 { margin-bottom:18px; }
+.wall-heading > p:last-child { max-width:44em; margin:0; color:#25414a; }
+.public-step,.public-step:nth-child(3n + 2),.public-step:nth-child(3n + 3) { background:#f4fbfd; border-color:#b6d7df; border-inline-start-color:#24677c; }
+.voice-label { color:#24677c; }
+@media (max-width:620px) { .comments-action { width:100%; justify-content:space-between; } .wall-heading { padding:24px 18px; margin-bottom:18px; } .comments-kicker { margin-bottom:14px; } }
+
