@@ -26,56 +26,6 @@ const copy = {
     refusal1Title: "War",
     refusal1Text: "Any war, anywhere. No flag makes a child’s terror acceptable.",
     refusal2Title: "Violence",
-    // Give every published conversation its own reply button.
-const replyWall = document.getElementById("step-wall");
-document.querySelector(".wall-invitation")?.remove();
-
-function addReplyButtons() {
-  replyWall.querySelectorAll(".public-step").forEach((card, index) => {
-    if (card.querySelector(".reply-to-step")) return;
-
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "primary-action reply-to-step";
-    button.textContent = language === "fa"
-      ? "به این گفت‌وگو پاسخ بده ↓"
-      : "Reply to this conversation ↓";
-
-    button.addEventListener("click", () => {
-      const number = index + 1;
-      const reference = language === "fa"
-        ? "در پاسخ به پیام شماره " + number
-        : "In response to message " + number;
-
-      let notice = document.getElementById("reply-context");
-      if (!notice) {
-        notice = document.createElement("div");
-        notice.id = "reply-context";
-        notice.style.cssText =
-          "margin-bottom:18px;padding:18px;border:2px solid #24677c;background:#e8f5f9;color:#16495d;line-height:1.8";
-        document.querySelector(".form-card").before(notice);
-      }
-
-      notice.replaceChildren();
-      const text = document.createElement("p");
-      text.textContent = language === "fa"
-        ? "پاسخ به پیام شماره " + number +
-          " — متن فرم را با عبارت زیر آغاز کن تا پاسخ زیر همین پیام منتشر شود"
-        : "Reply to message " + number +
-          " — begin your answer with the reference below";
-      const marker = document.createElement("strong");
-      marker.textContent = reference;
-      marker.style.cssText = "display:block;user-select:all";
-      notice.append(text, marker);
-      document.getElementById("step").scrollIntoView({ behavior: "smooth" });
-    });
-
-    card.append(button);
-  });
-}
-
-new MutationObserver(addReplyButtons).observe(replyWall, { childList: true });
-addReplyButtons();
     refusal2Text:
       "No human being should be dehumanized, tortured, displaced, or silenced.",
     refusal3Title: "Misogyny",
@@ -282,5 +232,53 @@ fetch("./steps.json", { cache: "no-store" })
 
 applyLanguage(language);
 
+// Give every published conversation its own reply button.
+const replyWall = document.getElementById("step-wall");
+document.querySelector(".wall-invitation")?.remove();
 
+function addReplyButtons() {
+  replyWall.querySelectorAll(".public-step").forEach((card, index) => {
+    if (card.querySelector(".reply-to-step")) return;
 
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "primary-action reply-to-step";
+    button.textContent = language === "fa"
+      ? "به این گفت‌وگو پاسخ بده ↓"
+      : "Reply to this conversation ↓";
+
+    button.addEventListener("click", () => {
+      const number = index + 1;
+      const reference = language === "fa"
+        ? "در پاسخ به پیام شماره " + number
+        : "In response to message " + number;
+
+      let notice = document.getElementById("reply-context");
+      if (!notice) {
+        notice = document.createElement("div");
+        notice.id = "reply-context";
+        notice.style.cssText =
+          "margin-bottom:18px;padding:18px;border:2px solid #24677c;background:#e8f5f9;color:#16495d;line-height:1.8";
+        document.querySelector(".form-card").before(notice);
+      }
+
+      notice.replaceChildren();
+      const text = document.createElement("p");
+      text.textContent = language === "fa"
+        ? "پاسخ به پیام شماره " + number +
+          " — متن فرم را با عبارت زیر آغاز کن تا پاسخ زیر همین پیام منتشر شود"
+        : "Reply to message " + number +
+          " — begin your answer with the reference below";
+      const marker = document.createElement("strong");
+      marker.textContent = reference;
+      marker.style.cssText = "display:block;user-select:all";
+      notice.append(text, marker);
+      document.getElementById("step").scrollIntoView({ behavior: "smooth" });
+    });
+
+    card.append(button);
+  });
+}
+
+new MutationObserver(addReplyButtons).observe(replyWall, { childList: true });
+addReplyButtons();
